@@ -21,6 +21,15 @@ export function Navigation() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Menangani scroll lock saat menu terbuka
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+  }, [isOpen]);
+
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     element?.scrollIntoView({ behavior: "smooth" });
@@ -36,8 +45,8 @@ export function Navigation() {
 
   return (
     <>
-      {/* 1. FLOATING TOGGLE BUTTON */}
-      <div className="fixed top-6 right-6 z-[60] flex items-center gap-4">
+      {/* 1. FLOATING TOGGLE BUTTON (Responsive Position) */}
+      <div className="fixed top-4 right-4 md:top-6 md:right-6 z-[60] flex items-center gap-3 md:gap-4">
         <div
           className={`p-1 rounded-full backdrop-blur-md border transition-all ${
             isScrolled
@@ -50,35 +59,23 @@ export function Navigation() {
 
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="relative group w-14 h-14 bg-black dark:bg-white rounded-full flex items-center justify-center shadow-2xl transition-transform active:scale-90"
+          className="relative group w-12 h-12 md:w-14 md:h-14 bg-black dark:bg-white rounded-full flex items-center justify-center shadow-xl transition-transform active:scale-90"
         >
-          <div className="relative w-6 h-6 flex flex-col justify-center items-center">
+          <div className="relative w-5 h-5 md:w-6 md:h-6 flex flex-col justify-center items-center">
             <span
-              className={`block w-6 h-0.5 transition-all duration-300 absolute ${
-                isOpen
-                  ? "rotate-45 bg-white dark:bg-black"
-                  : "-translate-y-1.5 bg-white dark:bg-black"
-              }`}
+              className={`block w-5 md:w-6 h-0.5 transition-all duration-300 absolute ${isOpen ? "rotate-45 bg-white dark:bg-black" : "-translate-y-1.5 bg-white dark:bg-black"}`}
             />
             <span
-              className={`block w-6 h-0.5 transition-all duration-300 ${
-                isOpen
-                  ? "opacity-0 bg-white dark:bg-black"
-                  : "opacity-100 bg-white dark:bg-black"
-              }`}
+              className={`block w-5 md:w-6 h-0.5 transition-all duration-300 ${isOpen ? "opacity-0 bg-white dark:bg-black" : "opacity-100 bg-white dark:bg-black"}`}
             />
             <span
-              className={`block w-6 h-0.5 transition-all duration-300 absolute ${
-                isOpen
-                  ? "-rotate-45 bg-white dark:bg-black"
-                  : "translate-y-1.5 bg-white dark:bg-black"
-              }`}
+              className={`block w-5 md:w-6 h-0.5 transition-all duration-300 absolute ${isOpen ? "-rotate-45 bg-white dark:bg-black" : "translate-y-1.5 bg-white dark:bg-black"}`}
             />
           </div>
         </button>
       </div>
 
-      {/* 2. OVERLAY MENU PANEL */}
+      {/* 2. OVERLAY MENU PANEL (Responsive Width & Height) */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -86,23 +83,26 @@ export function Navigation() {
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ type: "spring", damping: 30, stiffness: 200 }}
-            className="fixed inset-y-0 right-0 w-full md:w-[480px] bg-white dark:bg-black border-l border-black/5 dark:border-white/10 z-[55] shadow-2xl p-12 flex flex-col items-center"
+            className="fixed inset-y-0 right-0 w-full sm:w-[400px] md:w-[480px] bg-white dark:bg-black border-l border-black/5 dark:border-white/10 z-[55] shadow-2xl flex flex-col items-center overflow-y-auto"
           >
-            {/* Background Branding Overlay (Fachri) */}
-            <div className="absolute inset-0 flex items-center justify-center opacity-[0.03] dark:opacity-[0.03] pointer-events-none select-none overflow-hidden">
-              <h2 className="text-[180px] font-black uppercase text-black dark:text-white -rotate-90">
+            {/* Background Branding (Scale Down on Mobile) */}
+            <div className="absolute inset-0 flex items-center justify-center opacity-[0.02] dark:opacity-[0.03] pointer-events-none select-none overflow-hidden">
+              <h2 className="text-[30vw] sm:text-[180px] font-black uppercase text-black dark:text-white -rotate-90">
                 Fachri
               </h2>
             </div>
 
-            {/* Top Section: Header Label */}
-            <div className="w-full flex flex-col items-center mb-auto">
-              <div className="w-8 h-[1px] bg-black/10 dark:bg-white/20 mt-4" />
+            {/* Top Section */}
+            <div className="w-full flex flex-col items-center pt-16 md:pt-12 mb-auto shrink-0">
+              <p className="text-[9px] md:text-[10px] font-mono tracking-[0.4em] text-zinc-400 dark:text-zinc-500 uppercase">
+                Terminal // 2026
+              </p>
+              <div className="w-6 h-[1px] bg-black/10 dark:bg-white/20 mt-4" />
             </div>
 
-            {/* MIDDLE SECTION: Navigation Items (Focused Center) */}
-            <div className="flex-1 flex flex-col justify-center w-full relative z-10">
-              <nav className="flex flex-col items-center gap-12">
+            {/* MIDDLE SECTION: Navigation (Responsive Text Size) */}
+            <div className="flex-1 flex flex-col justify-center w-full relative z-10 py-12">
+              <nav className="flex flex-col items-center gap-8 md:gap-12">
                 {navItems.map((item, index) => (
                   <motion.div
                     key={item.id}
@@ -114,11 +114,11 @@ export function Navigation() {
                       onClick={() => scrollToSection(item.id)}
                       className="group flex flex-col items-center gap-1"
                     >
-                      <span className="text-zinc-300 dark:text-zinc-700 font-mono text-[10px] tabular-nums italic tracking-widest">
+                      <span className="text-zinc-300 dark:text-zinc-700 font-mono text-[9px] md:text-[10px] italic tracking-widest">
                         / 0{index + 1}
                       </span>
                       <div className="relative">
-                        <span className="text-4xl md:text-5xl font-black text-zinc-300 dark:text-zinc-500 group-hover:text-black dark:group-hover:text-white transition-all duration-500 uppercase tracking-tighter italic leading-none">
+                        <span className="text-3xl sm:text-4xl md:text-5xl font-black text-zinc-300 dark:text-zinc-500 group-hover:text-black dark:group-hover:text-white transition-all duration-500 uppercase tracking-tighter italic leading-none">
                           {item.name}
                         </span>
                         <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-black dark:bg-white transition-all duration-500 group-hover:w-full" />
@@ -129,22 +129,25 @@ export function Navigation() {
               </nav>
             </div>
 
-            {/* Bottom Section: Centered Footer */}
-            <div className="w-full flex flex-col items-center mt-auto gap-6 pt-12 border-t border-black/5 dark:border-white/10">
-              <div className="text-center">
-                <p className="text-[9px] text-zinc-400 dark:text-zinc-500 font-bold uppercase tracking-tight mb-1">
+            {/* Bottom Section: Compact Footer for Mobile */}
+            <div className="w-full flex flex-col items-center mt-auto gap-4 md:gap-6 pb-10 md:pb-12 pt-8 border-t border-black/5 dark:border-white/10 shrink-0 bg-white/80 dark:bg-black/80 backdrop-blur-sm">
+              <div className="text-center px-6">
+                <p className="text-[8px] md:text-[9px] text-zinc-400 dark:text-zinc-500 font-bold uppercase tracking-tight">
                   © 2026 Fachri Ahmad
+                </p>
+                <p className="text-[7px] md:text-[8px] text-zinc-400 dark:text-zinc-600 uppercase tracking-widest mt-1">
+                  Informatics Engineering ITERA
                 </p>
               </div>
 
-              <div className="flex gap-6 text-zinc-400 dark:text-zinc-500">
+              <div className="flex gap-5 md:gap-6 text-zinc-400 dark:text-zinc-500">
                 <a
                   href="https://github.com/Fachr1Ahmad"
                   target="_blank"
                   rel="noreferrer"
                   className="hover:text-black dark:hover:text-white transition-colors"
                 >
-                  <Github size={18} />
+                  <Github size={16} className="md:w-[18px] md:h-[18px]" />
                 </a>
                 <a
                   href="https://linkedin.com/in/fachriahmad"
@@ -152,13 +155,13 @@ export function Navigation() {
                   rel="noreferrer"
                   className="hover:text-black dark:hover:text-white transition-colors"
                 >
-                  <Linkedin size={18} />
+                  <Linkedin size={16} className="md:w-[18px] md:h-[18px]" />
                 </a>
                 <a
                   href="#"
                   className="hover:text-black dark:hover:text-white transition-colors"
                 >
-                  <Instagram size={18} />
+                  <Instagram size={16} className="md:w-[18px] md:h-[18px]" />
                 </a>
               </div>
             </div>
@@ -166,7 +169,7 @@ export function Navigation() {
         )}
       </AnimatePresence>
 
-      {/* 3. DIM OVERLAY */}
+      {/* 3. DIM OVERLAY (Better Contrast) */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -174,7 +177,7 @@ export function Navigation() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setIsOpen(false)}
-            className="fixed inset-0 bg-white/60 dark:bg-black/80 backdrop-blur-sm z-50 transition-opacity"
+            className="fixed inset-0 bg-white/40 dark:bg-black/70 backdrop-blur-[2px] z-50 transition-opacity"
           />
         )}
       </AnimatePresence>
