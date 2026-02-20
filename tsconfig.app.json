@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "target": "ESNext", // <-- PENTING: Menentukan versi JavaScript output
+    "useDefineForClassFields": true,
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true, // <-- PENTING: Membantu impor modul
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "ESNext", // <-- PENTING: Menggunakan sistem modul modern
+    "moduleResolution": "bundler", // <-- INI YANG PALING PENTING untuk error Anda
+    "resolveJsonModule": true,
+    "isolatedModules": true, // <-- PENTING: Wajib untuk Vite
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "strictNullChecks": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noImplicitAny": false,
+
+    /* Path Aliases Konfigurasi */
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["src"] 
+}
