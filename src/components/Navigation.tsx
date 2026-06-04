@@ -21,7 +21,6 @@ export function Navigation() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Menangani scroll lock saat menu terbuka
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -45,7 +44,6 @@ export function Navigation() {
 
   return (
     <>
-      {/* 1. FLOATING TOGGLE BUTTON (Responsive Position) */}
       <div className="fixed top-4 right-4 md:top-6 md:right-6 z-[60] flex items-center gap-3 md:gap-4">
         <div
           className={`p-1 rounded-full backdrop-blur-md border transition-all ${
@@ -75,7 +73,6 @@ export function Navigation() {
         </button>
       </div>
 
-      {/* 2. OVERLAY MENU PANEL (Responsive Width & Height) */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -85,14 +82,12 @@ export function Navigation() {
             transition={{ type: "spring", damping: 30, stiffness: 200 }}
             className="fixed inset-y-0 right-0 w-full sm:w-[400px] md:w-[480px] bg-white dark:bg-black border-l border-black/5 dark:border-white/10 z-[55] shadow-2xl flex flex-col items-center overflow-y-auto"
           >
-            {/* Background Branding (Scale Down on Mobile) */}
             <div className="absolute inset-0 flex items-center justify-center opacity-[0.02] dark:opacity-[0.03] pointer-events-none select-none overflow-hidden">
               <h2 className="text-[30vw] sm:text-[180px] font-black uppercase text-black dark:text-white -rotate-90">
                 Fachri
               </h2>
             </div>
 
-            {/* Top Section */}
             <div className="w-full flex flex-col items-center pt-16 md:pt-12 mb-auto shrink-0">
               <p className="text-[9px] md:text-[10px] font-mono tracking-[0.4em] text-zinc-400 dark:text-zinc-500 uppercase">
                 Terminal // 2026
@@ -100,7 +95,6 @@ export function Navigation() {
               <div className="w-6 h-[1px] bg-black/10 dark:bg-white/20 mt-4" />
             </div>
 
-            {/* MIDDLE SECTION: Navigation (Responsive Text Size) */}
             <div className="flex-1 flex flex-col justify-center w-full relative z-10 py-12">
               <nav className="flex flex-col items-center gap-8 md:gap-12">
                 {navItems.map((item, index) => (
@@ -129,7 +123,6 @@ export function Navigation() {
               </nav>
             </div>
 
-            {/* Bottom Section: Compact Footer for Mobile */}
             <div className="w-full flex flex-col items-center mt-auto gap-4 md:gap-6 pb-10 md:pb-12 pt-8 border-t border-black/5 dark:border-white/10 shrink-0 bg-white/80 dark:bg-black/80 backdrop-blur-sm">
               <div className="text-center px-6">
                 <p className="text-[8px] md:text-[9px] text-zinc-400 dark:text-zinc-500 font-bold uppercase tracking-tight">
@@ -169,7 +162,6 @@ export function Navigation() {
         )}
       </AnimatePresence>
 
-      {/* 3. DIM OVERLAY (Better Contrast) */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
