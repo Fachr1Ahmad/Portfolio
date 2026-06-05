@@ -41,7 +41,7 @@ export function Hero() {
 
       // Buka link Google Drive CV Anda
       window.open(
-        "https://drive.google.com/file/d/1_ynD0Jne993VUHOq2p5UgxSk8hJzSCgD/view?usp=sharing",
+        "https://drive.google.com/file/d/1N2TZg7pk8-MGw4gLhzdCM21_gX_HoitX/view?usp=sharing",
         "_blank",
       );
 
@@ -130,20 +130,7 @@ export function Hero() {
             Fachri Ahmad
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1, duration: 0.6 }}
-            className="absolute -left-6 top-1/3 bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 shadow-xl px-3 py-2 rounded-sm"
-          >
-            <p className="text-[9px] font-mono uppercase tracking-widest text-zinc-400">
-              Data processed
-            </p>
-            <p className="text-lg font-black text-black dark:text-white leading-none mt-0.5">
-              2.5M+
-            </p>
-            <p className="text-[9px] font-mono text-zinc-400">rows at BRI</p>
-          </motion.div>
+          
         </motion.div>
 
         <div className="flex flex-col items-center text-center max-w-2xl space-y-6">
