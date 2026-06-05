@@ -5,11 +5,11 @@
     { "path": "./tsconfig.node.json" }
   ],
   "compilerOptions": {
-    "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
     },
     "noImplicitAny": false,
+    // ... opsi lainnya tetap sama
     "noUnusedParameters": false,
     "skipLibCheck": true,
     "allowJs": true,
